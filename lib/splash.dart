@@ -1,18 +1,19 @@
+import 'package:firebase_base/home.dart';
 import 'package:firebase_base/login.dart';
 import 'package:flutter/material.dart';
 
-class splash extends StatefulWidget {
-  const splash({super.key});
+class Splash extends StatefulWidget {
+  const Splash({super.key});
 
   @override
-  State<splash> createState() => _splashState();
+  State<Splash> createState() => _SplashState();
 }
 
-class _splashState extends State<splash> {
+class _SplashState extends State<Splash> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) => login()));
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => Home()));
     });
     super.initState();
   }
