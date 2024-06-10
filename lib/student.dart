@@ -91,7 +91,10 @@ class _StudentState extends State<Student> {
                   ),
                 ),
               ),
-            ),SizedBox(height: 10.h,),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
             Container(
               width: 100.w,
               height: 40.h,
@@ -107,7 +110,10 @@ class _StudentState extends State<Student> {
                   ),
                 ),
               ),
-            ),SizedBox(height: 10.h,),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
             Container(
               width: 100.w,
               height: 40.h,
@@ -123,7 +129,10 @@ class _StudentState extends State<Student> {
                   ),
                 ),
               ),
-            ),SizedBox(height: 10.h,),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
             Container(
               width: 100.w,
               height: 40.h,
@@ -145,6 +154,25 @@ class _StudentState extends State<Student> {
               height: 40.h,
               color: Colors.white54,
               child: Text(
+                "Attendance",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.mulish(
+                  textStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Container(
+              width: 100.w,
+              height: 40.h,
+              color: Colors.white54,
+              child: Text(
                 "Examination Schedule",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.mulish(
@@ -155,7 +183,10 @@ class _StudentState extends State<Student> {
                   ),
                 ),
               ),
-            ),SizedBox(height: 10.h,),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
             Container(
               width: 100.w,
               height: 40.h,

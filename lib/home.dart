@@ -1,3 +1,4 @@
+import 'package:firebase_base/Course.dart';
 import 'package:firebase_base/about.dart';
 import 'package:firebase_base/admission.dart';
 import 'package:firebase_base/contact.dart';
@@ -15,7 +16,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> txt = ["Admission", "Students login", "Contact", "About"];
+  List<String> txt = ["Admission", "Students login", "Courses","Contact", "About"];
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,8 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: 30),
           GridView.count(
-            crossAxisCount: 2,
+            crossAxisCount: 2,physics: NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
             crossAxisSpacing: 10.0,
             mainAxisSpacing: 10.0,
             shrinkWrap: true,
@@ -63,9 +65,13 @@ class _HomeState extends State<Home> {
                       }
                       if(index==2){
                         Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (_) => Contact()));
+                            .push(MaterialPageRoute(builder: (_) => Course()));
                       }
                       if(index==3){
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (_) => Contact()));
+                      }
+                      if(index==4){
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (_) => About()));
                       }
