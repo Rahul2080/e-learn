@@ -37,7 +37,7 @@ class _CourseState extends State<Course> {
             itemBuilder: (context, index) {
               return Container(
                 width: 60.w,
-                height: 150.h,
+                height: 250.h,
                 decoration: ShapeDecoration(
                   color: Colors.red,
                   shape: RoundedRectangleBorder(

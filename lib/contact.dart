@@ -41,47 +41,53 @@ class _ContactState extends State<Contact> {
               ),
             ),
           ),
-          Text(
-            "Ash crop institute, \n ops mall, vayilathoor ,Tirur \n malapuram District \n pincode - 678689  \n  ashcrop@gmail.com  \n www.ashcrop .com",
-            textAlign: TextAlign.start,
-            style: GoogleFonts.jost(
-              textStyle: TextStyle(
-                color: Colors.black,
-                fontSize: 11.sp,
-                fontWeight: FontWeight.w800,
+          Padding(
+            padding: const EdgeInsets.only(top: 20,right: 30),
+            child: Text(
+              "Ash crop institute, \n ops mall, vayilathoor ,Tirur \n malapuram District \n pincode - 678689  \n  ashcrop@gmail.com  \n www.ashcrop .com",
+              textAlign: TextAlign.start,
+              style: GoogleFonts.jost(
+                textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 11.sp,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ),
-          Container(
-            width: 280,
-            height: 60,
-            decoration: ShapeDecoration(
-              color: Colors.blue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+          Padding(
+            padding: const EdgeInsets.only(top: 60,left: 40),
+            child: Container(
+              width: 280.w,
+              height: 60.h,
+              decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(40),
-                    child: Image.asset(
-                      "assets/whatapp.jpg",
-                    ),
-                  ),SizedBox(width: 30),
-                  Text(
-                    "9988776655",
-                    style: GoogleFonts.jost(
-                      textStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: 11.sp,
-                        fontWeight: FontWeight.w800,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: Image.asset(
+                        "assets/whatapp.jpg",
                       ),
-                    ),
-                  )
-                ],
+                    ),SizedBox(width: 30.w),
+                    Text(
+                      "9988776655",
+                      style: GoogleFonts.jost(
+                        textStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

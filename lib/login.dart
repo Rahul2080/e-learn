@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_base/sign.dart';
-import 'package:firebase_base/student.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,6 +13,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController email=TextEditingController();
+  TextEditingController password=TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
   bool ischeck = false;
   bool value = false;
 
@@ -71,7 +74,7 @@ class _LoginState extends State<Login> {
                     borderRadius: BorderRadius.circular(14),
                   ),
                 ),
-                child: TextField(
+                child: TextField(controller: email,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(borderSide: BorderSide.none),
                       labelText: "Student id"),
@@ -90,7 +93,7 @@ class _LoginState extends State<Login> {
                   borderRadius: BorderRadius.circular(14),
                 ),
               ),
-              child: TextField(
+              child: TextField(controller: password,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(borderSide: BorderSide.none),
                   labelText: "Password",
@@ -147,9 +150,7 @@ class _LoginState extends State<Login> {
             Padding(
               padding: const EdgeInsets.only(top: 50),
               child: TextButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => Student()));
+                onPressed: () { auth.createUserWithEmailAndPassword(email: email.text, password: password.text);
                 },
                 child: Container(
                   width: 300.w,
