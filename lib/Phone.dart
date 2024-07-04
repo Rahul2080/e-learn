@@ -28,9 +28,6 @@ class _PhoneState extends State<Phone> {
                 padding: const EdgeInsets.only(left: 15, right: 25, top: 100),
                 child: TextField(
                   controller: phone,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly ],
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(28),
@@ -69,8 +66,7 @@ class _PhoneState extends State<Phone> {
                           backgroundColor: Colors.red,
                           textColor: Colors.white,
                           fontSize: 16.0);});
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => Otp()));
+
                 },
                 child: Container(
                   width: 200.w,
