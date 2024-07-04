@@ -13,7 +13,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) => Home()));
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => Login()));
     });
     super.initState();
   }

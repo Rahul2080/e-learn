@@ -2,6 +2,7 @@ import 'package:firebase_base/Course.dart';
 import 'package:firebase_base/about.dart';
 import 'package:firebase_base/admission.dart';
 import 'package:firebase_base/contact.dart';
+import 'package:firebase_base/student.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,7 +62,7 @@ class _HomeState extends State<Home> {
                       }
                       if(index==1){
                         Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (_) => Login()));
+                            .push(MaterialPageRoute(builder: (_) => Student()));
                       }
                       if(index==2){
                         Navigator.of(context)
