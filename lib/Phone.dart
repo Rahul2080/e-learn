@@ -28,7 +28,7 @@ class _PhoneState extends State<Phone> {
                 padding: const EdgeInsets.only(left: 15, right: 25, top: 100),
                 child: TextField(
                   controller: phone,
-                  decoration: InputDecoration(
+                  decoration: InputDecoration(prefix: Text("+91 "),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(28),
                         borderSide: BorderSide(width: 2, color: Colors.black)),
@@ -44,8 +44,10 @@ class _PhoneState extends State<Phone> {
               ),
               GestureDetector(
                 onTap: () {
+                  print("+91${phone.text}");
                   phoneauth.verifyPhoneNumber(
-                    phoneNumber:phone.text,
+
+                    phoneNumber:"+91${phone.text}",
                       verificationCompleted: (_){},
                       verificationFailed: (error){ Fluttertoast.showToast(
                           msg: error.toString(),
@@ -56,7 +58,7 @@ class _PhoneState extends State<Phone> {
                           textColor: Colors.white,
                           fontSize: 16.0);},
                       codeSent: (String verificationId,int? token){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Otp()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Otp(verification: verificationId,)));
                       },
                       codeAutoRetrievalTimeout: (error){ Fluttertoast.showToast(
                           msg: error.toString(),

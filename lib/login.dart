@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_base/Phone.dart';
-import 'package:firebase_base/google.dart';
 import 'package:firebase_base/home.dart';
 import 'package:firebase_base/sign.dart';
-import 'package:firebase_base/student.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -23,6 +22,7 @@ class _LoginState extends State<Login> {
   FirebaseAuth auth = FirebaseAuth.instance;
   bool ischeck = false;
   bool value = false;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   Widget build(BuildContext context) {
@@ -228,7 +228,11 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.only(left: 126, top: 10),
               child: Row(
                 children: [
-                  GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Google()));},
+                  GestureDetector(onTap: (){
+                    signInwithGoogle();
+                    
+                    
+                    },
                     child: CircleAvatar(
                       radius: 25.r,
                       backgroundColor: Colors.white,
@@ -289,6 +293,23 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  Future<String?> signInwithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+      await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount!.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      await auth.signInWithCredential(credential).then((onValue)=>Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Home())));
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+      throw e;
+    }
   }
 }
 
