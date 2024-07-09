@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_base/Read%20data.dart';
+import 'package:firebase_base/RealTime_Home.dart';
 import 'package:firebase_base/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,10 +12,10 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-TextEditingController text = TextEditingController();
-final firestore = FirebaseFirestore.instance.collection("Post");
+
 
 class _HomeState extends State<Home> {
+
   List<String> txt = [
     "Admission",
     "Students login",
@@ -22,6 +23,10 @@ class _HomeState extends State<Home> {
     "Contact",
     "About"
   ];
+
+
+  TextEditingController text = TextEditingController();
+  final firestore = FirebaseFirestore.instance.collection("Post");
 
 
   @override
@@ -47,9 +52,10 @@ class _HomeState extends State<Home> {
                     .microsecondsSinceEpoch
                     .toString();
                 firestore.doc(id).set({ "title": text.text, "id": id}).then((
-                    onValue) =>
+                    onValue)
                 {
-                  ToastMessage().toastmessage(message: "text.added")
+                  text.clear();
+                  ToastMessage().toastmessage(message: "text.added");
                 }).onError((error, StackTrace) =>
                     ToastMessage().toastmessage(message: error.toString()));
               },
@@ -83,6 +89,26 @@ class _HomeState extends State<Home> {
                   ),
                   child: Text(
                     "See more",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25.sp),
+                  ),
+                ),
+              ),
+SizedBox(height: 50.h,),
+              GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=>RealtimeHome()));},
+                child: Container(
+                  width: 200.w,
+                  height: 40.h,
+                  decoration: ShapeDecoration(
+                    color: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                  ),
+                  child: Text(
+                    "Real Time",
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white,
                         fontWeight: FontWeight.w700,

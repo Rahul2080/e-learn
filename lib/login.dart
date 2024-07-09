@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_base/Forgot_Password.dart';
 import 'package:firebase_base/Phone.dart';
 import 'package:firebase_base/home.dart';
 import 'package:firebase_base/sign.dart';
@@ -121,6 +122,18 @@ class _LoginState extends State<Login> {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.only(left: 180, top: 20),
+              child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => ForgotPassword()));
+                  },
+                  child: Text(
+                    "Forgot Password",
+                    style: TextStyle(fontSize: 14.sp),
+                  )),
+            ),
+            Padding(
               padding: const EdgeInsets.only(left: 30, top: 20),
               child: Row(
                 children: [
@@ -228,10 +241,9 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.only(left: 126, top: 10),
               child: Row(
                 children: [
-                  GestureDetector(onTap: (){
-                    signInwithGoogle();
-                    
-                    
+                  GestureDetector(
+                    onTap: () {
+                      signInwithGoogle();
                     },
                     child: CircleAvatar(
                       radius: 25.r,
@@ -243,7 +255,11 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   SizedBox(width: 25.w),
-                  GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Phone()));},
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (_) => Phone()));
+                    },
                     child: CircleAvatar(
                         radius: 27.r,
                         backgroundColor: Colors.white,
@@ -298,14 +314,16 @@ class _LoginState extends State<Login> {
   Future<String?> signInwithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
-      await _googleSignIn.signIn();
+          await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount!.authentication;
+          await googleSignInAccount!.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
-      await auth.signInWithCredential(credential).then((onValue)=>Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Home())));
+      await auth.signInWithCredential(credential).then((onValue) =>
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => Home())));
     } on FirebaseAuthException catch (e) {
       print(e.message);
       throw e;

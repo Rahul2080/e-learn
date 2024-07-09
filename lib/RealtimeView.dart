@@ -1,52 +1,42 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class Read extends StatefulWidget {
-  const Read({super.key});
+class Realtimeview extends StatefulWidget {
+  const Realtimeview({super.key});
 
   @override
-  State<Read> createState() => _ReadState();
+  State<Realtimeview> createState() => _RealtimeviewState();
 }
 
-class _ReadState extends State<Read> {
-  TextEditingController controller = TextEditingController();
-  final Firestore = FirebaseFirestore.instance.collection("Post").snapshots();
-  final ref = FirebaseFirestore.instance.collection("Post");
-
+class _RealtimeviewState extends State<Realtimeview> {
+  TextEditingController txtcontroller=TextEditingController();
+  final realtimeview =FirebaseDatabase.instance.ref("Realtime");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 800.h,
-              child: StreamBuilder<QuerySnapshot>(
-                  stream: Firestore,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                    if (snapshot.hasError) {
-                      return Center(
-                        child: Text(
-                          "Error",
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                      );
-                    }
-                    if (snapshot.hasData) {
-                      return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: snapshot.data!.docs.length,
+            Center(
+              child: StreamBuilder(
+                stream: realtimeview.onValue,
+                builder: (context, AsyncSnapshot<DatabaseEvent> snapshot){
+                  if(!snapshot.hasData){
+                    return Center(child: CircularProgressIndicator(),);
+                  }
+                  if(snapshot.hasError){return  Center(child: Text("Error"),);}
+                  if(snapshot.hasData) {
+
+                    Map<dynamic,dynamic>map=snapshot.data!.snapshot.value as dynamic;
+
+                    return SizedBox(height: 600.h,
+                      child: ListView.builder(
+                        itemCount: snapshot.data!.snapshot.children.length,
                         itemBuilder: (context, position) {
-                          return ListTile(
-                            title: Text(
-                              snapshot.data!.docs[position]["title"].toString(),
-                            ),
+
+                          return ListTile(title: Text(map.values.toList()[position]["title"].toString()),
                             trailing: Wrap(
                               children: [
                                 IconButton(
@@ -56,7 +46,7 @@ class _ReadState extends State<Read> {
                                       builder: (ctx) => AlertDialog(
                                         title: Text("update here"),
                                         content: TextField(
-                                          controller: controller,
+                                          controller:txtcontroller ,
                                           decoration: InputDecoration(
                                               border: OutlineInputBorder(),
                                               hintText: "Type here"),
@@ -65,12 +55,10 @@ class _ReadState extends State<Read> {
                                         actions: <Widget>[
                                           TextButton(
                                             onPressed: () {
-                                              ref
-                                                  .doc(snapshot.data!
-                                                      .docs[position]["id"]
-                                                      .toString())
+
+                                              realtimeview.child(map.values.toList()[position]["id"])
                                                   .update({
-                                                "title": controller.text
+                                                "title": txtcontroller.text.toString()
                                               }).then((onValue) {
                                                 Fluttertoast.showToast(
                                                     msg: "Update Succesfully");
@@ -97,22 +85,19 @@ class _ReadState extends State<Read> {
                                 ),
                                 IconButton(
                                     onPressed: () {
-                                      ref
-                                          .doc(snapshot
-                                              .data!.docs[position]["id"]
-                                              .toString())
-                                          .delete();
+                                      realtimeview.child(map.values.toList()[position]["id"].toString()).remove();
+
                                     },
                                     icon: Icon(Icons.delete))
                               ],
                             ),
                           );
                         },
-                      );
-                    } else {
-                      return SizedBox();
-                    }
-                  }),
+                      ),
+                    );
+                  }else{return SizedBox();}
+                }
+              ),
             ),
           ],
         ),
