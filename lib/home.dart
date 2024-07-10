@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_base/Image_Upload.dart';
 import 'package:firebase_base/Read%20data.dart';
 import 'package:firebase_base/RealTime_Home.dart';
 import 'package:firebase_base/login.dart';
@@ -116,6 +117,27 @@ SizedBox(height: 50.h,),
                   ),
                 ),
               ),
+              SizedBox(height: 50.h,),
+              GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=>ImageUpload()));},
+                child: Container(
+                  width: 200.w,
+                  height: 40.h,
+                  decoration: ShapeDecoration(
+                    color: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                  ),
+                  child: Text(
+                    "Image",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25.sp),
+                  ),
+                ),
+              ),
+
             ],
           ),
         ));

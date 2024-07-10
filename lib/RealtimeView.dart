@@ -29,7 +29,10 @@ class _RealtimeviewState extends State<Realtimeview> {
                   if(snapshot.hasError){return  Center(child: Text("Error"),);}
                   if(snapshot.hasData) {
 
-                    Map<dynamic,dynamic>map=snapshot.data!.snapshot.value as dynamic;
+                    Map<dynamic,dynamic>? map=snapshot.data!.snapshot.value as Map<dynamic,dynamic>?;
+                    if(map == null || map.isEmpty){
+                      return Center(child: Text("No Data available"),);
+                    }
 
                     return SizedBox(height: 600.h,
                       child: ListView.builder(
