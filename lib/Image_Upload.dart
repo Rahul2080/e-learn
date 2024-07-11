@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_base/View_image.dart';
+import 'package:firebase_base/login.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +45,7 @@ class _ImageUploadState extends State<ImageUpload> {
     });
   }
 
-  final realFirebase = FirebaseDatabase.instance;
+  final realFirebase = FirebaseDatabase.instance.ref("Image Collection");
   final Storage = FirebaseStorage.instance;
 
   @override
@@ -69,6 +71,7 @@ class _ImageUploadState extends State<ImageUpload> {
                                 GestureDetector(
                                   onTap: () {
                                     getImageCamera();
+                                    Navigator.of(context).pop();
                                   },
                                   child: Container(
                                     width: 100.w,
@@ -102,6 +105,7 @@ class _ImageUploadState extends State<ImageUpload> {
                                 GestureDetector(
                                   onTap: () {
                                     getImageGallery();
+                                    Navigator.of(context).pop();
                                   },
                                   child: Container(
                                     width: 100.w,
@@ -161,9 +165,23 @@ class _ImageUploadState extends State<ImageUpload> {
             ),
             SizedBox(height: 50.h),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 final id = DateTime.now().microsecondsSinceEpoch.toString();
-
+                Reference folder= Storage.ref("/Folder name/"+id);
+                UploadTask uploadtask =folder.putFile(image!.absolute);
+                await Future.value(uploadtask).then((onValue) async {var newUrl= await folder.getDownloadURL();
+                
+                  realFirebase.child(id).set({"id":id,
+                    "title" : newUrl.toString()}).then((Value) {
+                      ToastMessage().toastmessage(message: "Upload Succesfully");
+                      setState(() {
+                        image=null;
+                      });
+                    
+                    }).onError((error ,StackTrace) {ToastMessage().toastmessage(message: error.toString());});
+                
+                
+                });
 
               },
               child: Container(
@@ -184,7 +202,29 @@ class _ImageUploadState extends State<ImageUpload> {
                   ),
                 ),
               ),
+            ),SizedBox(height: 40.h,),
+            GestureDetector(onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (_)=>ViewImage()));},
+              child: Container(
+                width: 190.w,
+                height: 50.h,
+                decoration: ShapeDecoration(
+                  color: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Text(
+                    "View image",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 26.sp),
+                  ),
+                ),
+              ),
             ),
+
+
           ],
         ),
       ),
